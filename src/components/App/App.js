@@ -14,6 +14,7 @@ class App extends Component {
           <Fragment>
             <Route exact path="/" component={HomeContainer} />
             <Route path="/categories/:id" component={CategoryContainer} />
+            <Route path="/category/:id" component={QuestionContainer} />
           </Fragment>
         </Router>
       </div>
