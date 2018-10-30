@@ -16,7 +16,7 @@ class CategoryContainer extends Component {
     console.log(this.props);
     return (
       <Category
-        categoryName={this.props.match.params.name}
+        categoryName={this.props.match.params.id}
       />
     );
   }
