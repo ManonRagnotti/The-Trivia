@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './App.css';
 import HomeContainer from '../../views/Home/HomeContainer';
 import CategoryContainer from '../../views/Category/CategoryContainer';
+import QuestionContainer from '../../views/Question/QuestionContainer';
+
 
 class App extends Component {
   render() {

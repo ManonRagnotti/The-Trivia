@@ -1,4 +1,6 @@
-import React, { Component } from 'react';
+import React, {
+  Component
+} from 'react';
 import api from '../../helpers/api';
 import Category from './Category';
 
@@ -14,9 +16,10 @@ class CategoryContainer extends Component {
   }
   render() {
     console.log(this.props);
-    return (
-      <Category
-        categoryName={this.props.match.params.id}
+    return ( <
+      Category categoryName = {
+        this.props.match.params.id
+      }
       />
     );
   }
