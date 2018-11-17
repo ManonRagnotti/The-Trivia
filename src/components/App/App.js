@@ -1,9 +1,11 @@
 import React, { Component, Fragment } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+
+import styled from 'styled-components';
 import './App.css';
+
 import HomeContainer from '../../views/Home/HomeContainer';
 import CategoryContainer from '../../views/Category/CategoryContainer';
-import QuestionContainer from '../../views/Question/QuestionContainer';
 
 
 class App extends Component {
