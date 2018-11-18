@@ -11,8 +11,8 @@ const Home = ({ categories }) => (
         <section>
             <ul>
             {categories.map(category => (
-                <li>
-                    <Link to={`/categories/${category.id}`} key={category.id}>
+                <li key={category.id}>
+                    <Link to={`/categories/${category.id}`} key={category.id} >
                       {category.title}
                     </Link>
                 </li>

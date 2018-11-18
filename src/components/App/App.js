@@ -7,7 +7,6 @@ import './App.css';
 import HomeContainer from '../../views/Home/HomeContainer';
 import CategoryContainer from '../../views/Category/CategoryContainer';
 
-
 class App extends Component {
   render() {
     return (
