@@ -14,6 +14,7 @@ class CategoryContainer extends Component {
     this.state = {
       category: null,
     }
+    this.looser = false
   }
 
   async componentDidMount() {
@@ -63,8 +64,7 @@ class CategoryContainer extends Component {
       if(Stockage.updateWrongAnswer(this.state.category.id)) {
         alert(`T'es un looser`)
         Stockage.resetLocalStorage()
-        this.forceUpdate()
-
+        this.looser = true
       }
     }
   }
@@ -79,7 +79,7 @@ class CategoryContainer extends Component {
     }
 
     //Redirect to home if there is not more question
-    if(this.state.category.questions[0] == undefined) {
+    if(this.state.category.questions[0] == undefined || this.looser) {
       return (
         <Redirect to="/" />
       )
