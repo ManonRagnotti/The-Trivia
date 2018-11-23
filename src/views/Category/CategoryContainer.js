@@ -13,8 +13,11 @@ class CategoryContainer extends Component {
     this.inputRef = React.createRef()
     this.state = {
       category: null,
+      errorCategory: null,
+      life: 3,
+      score: 0,
+      looser : false
     }
-    this.looser = false
   }
 
   async componentDidMount() {
@@ -52,11 +55,21 @@ class CategoryContainer extends Component {
   checkAnswer = (e) => {
     e.preventDefault()
     //Compare our value to the right answer and past to the next question if our value is true
+    //Ajouter 1 au score si c'est juste
     if(this.inputRef.current.value == this.state.category.questions[0].answer) {
       this.nextQuestion()
-      this.inputRef.current.value = ''
-    }else {
+      this.inputRef.current.value = '';
+      this.setState(prev=>({
+        score: prev.score + 1
+      }))
+    }
+
+    //Update la vie, décrémente de 1 à chaque faute et passe à la question d'après
+    else {
       alert('Mauvaise réponse')
+      this.setState(prev=>({
+        life: prev.life - 1
+      }));
       this.nextQuestion()
       this.inputRef.current.value = ''
 
@@ -64,7 +77,7 @@ class CategoryContainer extends Component {
       if(Stockage.updateWrongAnswer(this.state.category.id)) {
         alert(`T'es un looser`)
         Stockage.resetLocalStorage()
-        this.looser = true
+        this.setState({looser: true})
       }
     }
   }
@@ -90,6 +103,8 @@ class CategoryContainer extends Component {
       questions={this.state.category.questions[0].question}
       checkAnswer={this.checkAnswer}
       inputRef={this.inputRef}
+      life={this.state.life}
+      score={this.state.score}
       />
     );
   }

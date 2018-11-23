@@ -17,14 +17,15 @@ class Stockage {
       //score transforme en json les données récupéré dans le localStorage et dans game
       var score = JSON.parse(localStorage.getItem('game'))
       //counter est à 0, il compte les fautes
-      var counter = 0
+      var error = 0
       //a chaque erreur le compteur est incrémenté de 1
       for (var i in score){
-        counter = counter + score[i]
+        error = error + score[i]
       }
       //Au bout de 3 erreur le score est remis à 0
-      if(counter >= 3) return true
+      if(error >= 3) return true
 
+      console.log(score, error);
   }
 
   //Reset au bout de 3 erreurs
