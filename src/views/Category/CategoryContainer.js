@@ -44,7 +44,7 @@ class CategoryContainer extends Component {
     //Update state
     this.setState(prevState => ({
       category: {
-        id: prevState.category.id, //Keep the start State
+        id: prevState.category.id, //Keep the starting State
         name: prevState.category.name,
         questions: questions //Update array of questions
       }
@@ -55,16 +55,18 @@ class CategoryContainer extends Component {
   checkAnswer = (e) => {
     e.preventDefault()
     //Compare our value to the right answer and past to the next question if our value is true
+    //Supprime le contenu de la case pour laisser un champs vide
     //Ajouter 1 au score si c'est juste
     if(this.inputRef.current.value == this.state.category.questions[0].answer) {
       this.nextQuestion()
       this.inputRef.current.value = '';
       this.setState(prev=>({
         score: prev.score + 1
+        //Faire sauvegarde dans local storage
       }))
     }
 
-    //Update la vie, décrémente de 1 à chaque faute et passe à la question d'après
+    //Update la vie, décrémente de 1 à chaque faute, passe à la question d'après et vide le champs
     else {
       alert('Mauvaise réponse')
       this.setState(prev=>({

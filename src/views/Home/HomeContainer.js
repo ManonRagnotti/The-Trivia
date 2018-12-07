@@ -6,7 +6,7 @@ class HomeContainer extends Component {
     categories: [],
   }
   componentDidMount() {
-    fetch('http://jservice.io/api/categories?count=100').then(response => {
+    fetch('http://jservice.io/api/categories?count=10').then(response => {
       response.json().then(categories => {
         this.setState({
           categories: categories,
