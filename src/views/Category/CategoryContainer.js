@@ -6,6 +6,7 @@ import Stockage  from '../../helpers/Stockage';
 
 import Category from './Category';
 
+
 class CategoryContainer extends Component {
 
   constructor(props){
@@ -24,6 +25,7 @@ class CategoryContainer extends Component {
     const data = await api.getCategoryById(this.props.match.params.id)
     console.log('data' , data);
 
+
     //State de depart
     this.setState({
       category: {
@@ -31,12 +33,28 @@ class CategoryContainer extends Component {
         name: data.title,
         questions: data.clues
       }
-    });
+    } );
   }
+
+  componentDidUpdate() {
+    if(this.state.category) {
+      Stockage.init( this.state.category.id, this.state.score, this.state.life )
+      if(Stockage.isInLocalStorage()) {
+        console.log("deja la")
+        this.setState( prevState => {
+          return (
+            {score: Stockage.getScoreCategory( this.state.category.id ),
+              life: Stockage.getLifeCategory( this.state.category.id )}
+            )
+          } )
+      }
+    }
+  }
+
 
   //Go to the next question
   nextQuestion = (e) => {
-    //Create an array for stock questions
+    //Créer un array pour stocker les questions
     const questions = Array(...this.state.category.questions)
     console.log(questions);
     questions.shift(); //Delete the first line of array and past to the next question
@@ -60,20 +78,20 @@ class CategoryContainer extends Component {
     if(this.inputRef.current.value == this.state.category.questions[0].answer) {
       this.nextQuestion()
       this.inputRef.current.value = '';
-      this.setState(prev=>({
+      this.setState( prev =>({
         score: prev.score + 1
-        //Faire sauvegarde dans local storage
-      }))
+      }), () => { Stockage.updateScoreCategory( this.state.category.id, this.state.score  ) })
     }
 
     //Update la vie, décrémente de 1 à chaque faute, passe à la question d'après et vide le champs
     else {
       alert('Mauvaise réponse')
+      this.nextQuestion()
+      this.inputRef.current.value = '';
       this.setState(prev=>({
         life: prev.life - 1
-      }));
-      this.nextQuestion()
-      this.inputRef.current.value = ''
+      }), () => { Stockage.updateLifeCategory( this.state.category.id, this.state.life  ) })
+
 
       // If wrong answer add 1 to resetLocalStorage and reset if 3 errors
       if(Stockage.updateWrongAnswer(this.state.category.id)) {
