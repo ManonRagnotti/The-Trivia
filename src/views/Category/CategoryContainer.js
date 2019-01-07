@@ -36,6 +36,8 @@ class CategoryContainer extends Component {
     } );
   }
 
+  //Si on arrive sur une category: stocker l'id , le score et la vie dans local storage
+  //Si on revient sur une category déjà faite: afficher le score et les erreur de cette category
   componentDidUpdate() {
     if(this.state.category) {
       Stockage.init( this.state.category.id, this.state.score, this.state.life )
@@ -45,8 +47,8 @@ class CategoryContainer extends Component {
           return (
             {score: Stockage.getScoreCategory( this.state.category.id ),
               life: Stockage.getLifeCategory( this.state.category.id )}
-            )
-          } )
+          )
+        })
       }
     }
   }
@@ -90,11 +92,11 @@ class CategoryContainer extends Component {
       this.inputRef.current.value = '';
       this.setState(prev=>({
         life: prev.life - 1
-      }), () => { Stockage.updateLifeCategory( this.state.category.id, this.state.life  ) })
+      }), () => { Stockage.updateLifeCategory( this.state.category.id, this.state.life ) })
 
 
       // If wrong answer add 1 to resetLocalStorage and reset if 3 errors
-      if(Stockage.updateWrongAnswer(this.state.category.id)) {
+      if(Stockage.gameOVer(this.state.category.id)) {
         alert(`T'es un looser`)
         Stockage.resetLocalStorage()
         this.setState({looser: true})

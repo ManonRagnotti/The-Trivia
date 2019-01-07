@@ -11,7 +11,11 @@ const Category = ({ categoryName, questions, checkAnswer, inputRef, life, score}
         <input name="reponse" ref={inputRef} autoFocus/>
         <input type="submit" value="Valider"/>
       </form>
-      <span>life: {life}</span>
+
+      <span>error in this category: </span> <br/>
+      <span>score in this category: </span> <br/>
+
+      <span>life: {life}</span> <br/>
       <span>score: {score}</span>
     </section>
   </section>
