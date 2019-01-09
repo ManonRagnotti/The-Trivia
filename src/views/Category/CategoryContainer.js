@@ -5,6 +5,7 @@ import api from '../../helpers/api';
 import Stockage  from '../../helpers/Stockage';
 
 import Category from './Category';
+import GameOver from '../Popin/GameOver';
 
 
 class CategoryContainer extends Component {
@@ -96,10 +97,10 @@ class CategoryContainer extends Component {
 
 
       // If wrong answer add 1 to resetLocalStorage and reset if 3 errors
-      if(Stockage.gameOVer(this.state.category.id)) {
+      if(Stockage.gameOver(this.state.category.id)) {
         alert(`T'es un looser`)
         Stockage.resetLocalStorage()
-        this.setState({looser: true})
+        this.setState({looser: true, life: 3, score: 0})
       }
     }
   }
@@ -113,8 +114,15 @@ class CategoryContainer extends Component {
       )
     }
 
+    //Redirect to GameOvr page if you are a looser
+    // if( this.state.looser) {
+    //   return (
+    //     <Redirect to={GameOver} />
+    //   )
+    // }
+
     //Redirect to home if there is not more question
-    if(this.state.category.questions[0] == undefined || this.looser) {
+    if(this.state.category.questions[0] == undefined || this.state.looser) {
       return (
         <Redirect to="/" />
       )

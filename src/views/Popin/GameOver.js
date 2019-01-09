@@ -13,4 +13,4 @@ const GameOver = ({life}) => (
   </section>
 );
 
-export default GameOVer;
+export default GameOver;
