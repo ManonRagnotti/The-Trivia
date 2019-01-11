@@ -1,3 +1,85 @@
-h1{
+.content{
+    padding: 4em 7em;
+}
+
+.homepage {
+  height: 100vh;
+}
+
+/* Logo */
+
+.logo-content {
+float: left;
+}
+
+.logo {
+width: 120px;
+}
+
+/* Shape Home */
+
+.figure {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+}
+ 
+.home-text {
+    position: absolute;
+    font-size: 45px;
+    font-weight: 800;
+    left: 50%;
+  top: 50%;
+  transform: translate(-60%, -35%);
+}
+
+.shape-home {
+  width: 950px;
+}
+
+.shape-home:hover  {
+width: 800px;
+transition: 1s ease-in;
+}
+
+.shape-home:hover .home-text {
+transform: translateY(5%);
+}
+
+/* Categories */
+
+.shape-category {
+  width: 185px;
+}
+
+.choose-title {
+  color: white;
+  font-weight: 800;
+  font-size: 45px;
+  text-align: center;
+}
+
+/*Categories list*/
+.categories-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+.categories-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 20%;
+}
+
+.category-title {
+  position: absolute;
+    font-size: 15px;
+    color: black;
     text-align: center;
+    text-transform: uppercase;
+    font-weight: 700;
+
 }
