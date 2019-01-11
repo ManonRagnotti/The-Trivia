@@ -6,6 +6,7 @@ import Stockage  from '../../helpers/Stockage';
 
 import Category from './Category';
 import GameOver from '../Popin/GameOver';
+import Succes from '../Popin/Succes';
 
 
 class CategoryContainer extends Component {
@@ -18,7 +19,8 @@ class CategoryContainer extends Component {
       errorCategory: null,
       life: 3,
       score: 0,
-      looser : false
+      looser: false,
+      winner: false
     }
   }
 
@@ -114,15 +116,22 @@ class CategoryContainer extends Component {
       )
     }
 
-    //Redirect to GameOvr page if you are a looser
-    // if( this.state.looser) {
-    //   return (
-    //     <Redirect to={GameOver} />
-    //   )
-    // }
+    //Redirect to GameOver page if you are a looser
+    if( this.state.looser) {
+      return (
+        <Redirect to="/gameover" />
+      )
+    }
+
+    //Redirect to Succes page if you are a winner
+    if( this.state.winner) {
+      return (
+        <Redirect to="/succes" />
+      )
+    }
 
     //Redirect to home if there is not more question
-    if(this.state.category.questions[0] == undefined || this.state.looser) {
+    if(this.state.category.questions[0] == undefined ) {
       return (
         <Redirect to="/" />
       )
