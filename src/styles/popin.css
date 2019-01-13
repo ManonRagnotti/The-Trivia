@@ -1,0 +1,48 @@
+/* PAGE GAMEOVER & SUCCES */
+
+.gameover .container,
+.success .container {
+  width: 100%;
+  height: 90vh;
+  /* margin: 35vh auto; */
+}
+ .gameover .frontText,
+ .success .frontText {
+  text-align: center;
+  display: block;
+  font-style: italic;
+  z-index: 1;
+  font-size: 45px;
+  margin-top: 30vh;
+}
+.gameover .backText,
+.success .backText {
+  font-weight: 600;
+  font-size: 19vw;
+  position: absolute;
+  z-index: -999;
+  top: 20vh;
+  left: 1vw;
+  background: rgb(76,253,213);
+  background: -webkit-linear-gradient(bottom, rgba(76,253,213,1) 0%, rgba(17,154,234,1) 20%, rgba(127,38,228,1) 39%, rgba(222,32,154,1) 60%, rgba(241,67,97,1) 81%, rgba(236,142,35,1) 100%);
+  background: -o-linear-gradient(bottom, rgba(76,253,213,1) 0%, rgba(17,154,234,1) 20%, rgba(127,38,228,1) 39%, rgba(222,32,154,1) 60%, rgba(241,67,97,1) 81%, rgba(236,142,35,1) 100%);
+  background: linear-gradient(to top, rgba(76,253,213,1) 0%, rgba(17,154,234,1) 20%, rgba(127,38,228,1) 39%, rgba(222,32,154,1) 60%, rgba(241,67,97,1) 81%, rgba(236,142,35,1) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  }
+  .gameover .buttonReplay,
+  .success .buttonReplay {
+    text-decoration: none;
+    width: 14%;
+    text-align: center;
+    font-size: 1.5vw;
+    display: block;
+    margin: 10% auto;
+    padding: 1.5%;
+    cursor: pointer;
+    background: transparent;
+    color: white;
+    border: 2px solid transparent;
+    border-image-slice: 1;
+    border-image: linear-gradient(rgba(76,253,213,1), rgba(17,154,234,1), rgba(127,38,228,1),rgba(222,32,154,1),rgba(241,67,97,1),rgba(236,142,35,1)) 5;
+  }
