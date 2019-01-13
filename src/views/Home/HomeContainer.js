@@ -15,9 +15,21 @@ class HomeContainer extends Component {
       });
     })
   }
+
+//home animation function
+  explode = (e) => {
+    e.preventDefault()
+    console.log('cliked')
+    document.querySelector('.home_list_container').style.display ='block';
+    document.querySelector('.home_container').style.display ='none';
+  }
+
   render() {
     return (
-      <Home categories={this.state.categories} />
+      <Home
+        categories={this.state.categories}
+        explode={this.explode}
+      />
     );
   }
 }
