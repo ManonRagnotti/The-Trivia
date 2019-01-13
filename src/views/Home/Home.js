@@ -2,17 +2,26 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-const Home = ({ categories }) => (
+import home from '../../styles/home.css';
+
+// import './Home.css';
+
+const Home = ({ categories, explode }) => (
   <section>
-    <h1>Homepage</h1>
+    <h1 className="logo">LAME</h1>
     {categories.length > 0 && (
-      <section>
-        {categories.map(category => (
-          <Link to={`/categories/${category.id}`} key={category.id}>
-            {category.title}
-          </Link>
-        ))}
-      </section>
+        <section className="home_container">
+            <button className="home_button" onClick={e => explode(e)}></button>
+            <ul className="home_list_container">
+            {categories.map(category => (
+                <li key={category.id}>
+                    <Link to={`/categories/${category.id}`} key={category.id} >
+                      {category.title}
+                    </Link>
+                </li>
+            ))}
+            </ul>
+        </section>
     )}
   </section>
 );
