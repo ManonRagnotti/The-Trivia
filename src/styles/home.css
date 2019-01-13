@@ -2,6 +2,7 @@
 .home_container{
   height: 70vh;
   width: 80vw;
+  margin: 0 auto;
 }
 .home_button {
   display: block;
@@ -9,13 +10,12 @@
   background-color: black;
   background-repeat: no-repeat;
   background-size:contain;
-  width: 700px;
-  height: 700px;
+  width: 80vh;
+  height: 70vh;
   border: none;
   outline: none;
   margin: auto;
   cursor: pointer;
-  margin: 2% auto 0%;
   transition: 6s ease infinite;
   animation: MoveHome 12s ease-in infinite;
 }

@@ -5,7 +5,7 @@ import Stockage  from '../../helpers/Stockage';
 
 import category from '../../styles/category.css';
 
-const Category = ({ categoryName, questions, checkAnswer, inputRef, life, score) => (
+const Category = ({ categoryName, questions, checkAnswer, inputRef, life, score}) => (
   <section>
     <h1 className="logo">LAME</h1>
     <Link className='backHome' to={'/'}></Link>
