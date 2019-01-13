@@ -1,45 +1,30 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import Logo from '../../styles/img/logo.png';
-import shapeHome from '../../styles/img/morceau-home.png';
 
-import './Home.css';
+import home from '../../styles/home.css';
 
-const Home = ({ categories, images }) => (
+const Home = ({ categories, explode}) => (
   <section>
-    <div className="content">
-
-      <div className="homepage">
-      <div className="logo-content">
-      <img className="logo" src={Logo} alt="LAME"/>
-      </div>
-    <div className="figure">
-      <span className="home-text">CLICK HERE</span>
-      <img className="shape-home" src={shapeHome} alt="HOME"/>
-    </div>
-      </div>
-
-    { categories.length && images.length > 0 && (
-        <section>
-        <h1 className="choose-title">CHOOSE YOUR CATEGORY</h1>
-            <ul className="categories-list">
+    <h1>Homepage</h1>
+    {categories.length > 0 && (
+      <section>
+        <button className='home_container' onClick={e => explode(e)} ></button>
+        <ul className="home_list_container">
             {categories.map(category => (
-              <li className="categories-item" key={category.id}>
+                <li key={category.id}>
                     <Link to={`/categories/${category.id}`} key={category.id} >
-                  <span className="category-title"> {category.title}</span>
+                      {category.title}
                     </Link>
-
-                <img className="shape-category" src={images[1]} alt="img" />
-
                 </li>
             ))}
             </ul>
         </section>
     )}
-    </div>
   </section>
 );
+
+
 
 Home.propTypes = {
   categories: PropTypes.arrayOf(

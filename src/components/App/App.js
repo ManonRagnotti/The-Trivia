@@ -6,6 +6,8 @@ import './App.css';
 
 import HomeContainer from '../../views/Home/HomeContainer';
 import CategoryContainer from '../../views/Category/CategoryContainer';
+import GameOver from '../../views/Popin/GameOver';
+import Succes from '../../views/Popin/Succes';
 
 class App extends Component {
   render() {
@@ -15,7 +17,9 @@ class App extends Component {
           <Fragment>
             <Route exact path="/" component={HomeContainer} />
             <Route path="/categories/:id" component={CategoryContainer} />
-          </Fragment>
+            <Route path="/gameover" component={GameOver} />
+            <Route path="/succes" component={Succes} />
+           </Fragment>
         </Router>
       </div>
     );

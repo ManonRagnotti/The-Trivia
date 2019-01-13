@@ -76,7 +76,7 @@ class Stockage {
 
 
     //GameOVer
-    gameOVer(id){
+    gameOver(id){
         if ( this.game[id].life <= 1 ) return true
         this.resetLocalStorage()
     }
