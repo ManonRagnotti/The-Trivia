@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Redirect } from 'react-router'
+import { Route, Redirect } from 'react-router';
 
 import api from '../../helpers/api';
 import Stockage  from '../../helpers/Stockage';
@@ -16,10 +16,9 @@ class CategoryContainer extends Component {
     this.inputRef = React.createRef()
     this.state = {
       category: null,
-      errorCategory: null,
       life: 3,
       score: 0,
-      looser: false,
+      gameOver: false,
       winner: false
     }
   }
@@ -27,33 +26,41 @@ class CategoryContainer extends Component {
   async componentDidMount() {
     const data = await api.getCategoryById(this.props.match.params.id)
     console.log('data' , data);
-
-
+    const globalScore = Stockage.getGlobalScore()
+    const globalLife = Stockage.getGlobalLife()
+    console.log(globalScore)
+    
     //State de depart
     this.setState({
       category: {
         id: data.id,
         name: data.title,
         questions: data.clues
-      }
+      },
+      globalScore
     } );
-  }
 
-  //Si on arrive sur une category: stocker l'id , le score et la vie dans local storage
-  //Si on revient sur une category déjà faite: afficher le score et les erreur de cette category
-  componentDidUpdate() {
     if(this.state.category) {
       Stockage.init( this.state.category.id, this.state.score, this.state.life )
-      if(Stockage.isInLocalStorage()) {
+      if(Stockage.isInLocalStorage(this.state.category.id)) {
         console.log("deja la")
         this.setState( prevState => {
           return (
-            {score: Stockage.getScoreCategory( this.state.category.id ),
-              life: Stockage.getLifeCategory( this.state.category.id )}
+            {
+              score: Stockage.getCategoryScoreById( this.state.category.id ),
+              life: Stockage.getCategoryLifeById( this.state.category.id )
+            }
           )
         })
       }
     }
+
+  }
+
+  //Si on arrive sur une category: stocker l'id , le score et la vie dans local storage
+  componentDidUpdate() {
+
+
   }
 
 
@@ -71,7 +78,9 @@ class CategoryContainer extends Component {
         name: prevState.category.name,
         questions: questions //Update array of questions
       }
-    }))
+    }), () => {
+      Stockage.isInLocalStorage( this.state.category.questions)
+    })
   }
 
   //Check the Answer
@@ -84,8 +93,15 @@ class CategoryContainer extends Component {
       this.nextQuestion()
       this.inputRef.current.value = '';
       this.setState( prev =>({
-        score: prev.score + 1
-      }), () => { Stockage.updateScoreCategory( this.state.category.id, this.state.score  ) })
+        score: prev.score + 1,
+        globalScore: prev.globalScore + 1
+      }), () => {
+        Stockage.updateScore( this.state.category.id, this.state.score)
+        Stockage.updateGlobalScore(this.state.globalScore)
+       })
+       if( this.state.globalScore === 10 ) {
+ 				this.setState({ winner: true })
+ 			}
     }
 
     //Update la vie, décrémente de 1 à chaque faute, passe à la question d'après et vide le champs
@@ -95,16 +111,14 @@ class CategoryContainer extends Component {
       this.inputRef.current.value = '';
       this.setState(prev=>({
         life: prev.life - 1
-      }), () => { Stockage.updateLifeCategory( this.state.category.id, this.state.life ) })
-
-
-      // If wrong answer add 1 to resetLocalStorage and reset if 3 errors
-      if(Stockage.gameOver(this.state.category.id)) {
-        alert(`T'es un looser`)
-        Stockage.resetLocalStorage()
-        this.setState({looser: true, life: 3, score: 0})
-      }
+      }), () => {
+        Stockage.updateLife( this.state.category.id, this.state.life)
+      })
+      if( this.state.life === 1 ) {
+				this.setState({ gameOver: true })
+			}
     }
+
   }
 
   render() {
@@ -116,8 +130,8 @@ class CategoryContainer extends Component {
       )
     }
 
-    //Redirect to GameOver page if you are a looser
-    if( this.state.looser) {
+    //Redirect to GameOver page if you are a gameOver
+    if( this.state.gameOver) {
       return (
         <Redirect to="/gameover" />
       )
@@ -144,6 +158,7 @@ class CategoryContainer extends Component {
       inputRef={this.inputRef}
       life={this.state.life}
       score={this.state.score}
+      globalScore={this.state.globalScore}
       />
     );
   }

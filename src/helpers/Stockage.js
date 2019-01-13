@@ -9,11 +9,12 @@ class Stockage {
     }
 
     //Initialisation de la categorie dans le localstorage
-    init( id, score, life) {
-        if ( !this.isInLocalStorage() ) {
+    init( id, score, life, questions) {
+        if ( !this.isInLocalStorage(id) ) {
             this.game[id] =  {
                 score: score,
-                life: life
+                life: life,
+                questions: questions
             }
             this.updateLocalStorage()
         }
@@ -50,35 +51,74 @@ class Stockage {
         // console.log(score, error);
     }
 
+    //FOR EACH CATEGORY
     //Update score category
-    updateScoreCategory(id, score){
-        this.game[id].score = score
-        this.updateLocalStorage()
-    }
+    // updateScoreCategory(id, scoreCategory){
+    //     this.game[id].score = scoreCategory
+    //     this.updateLocalStorage()
+    // }
+    // //Get score category
+    // getScoreCategory(id) {
+    //     return this.game[id].score
+    // }
+    // //Update life category
+    // updateLifeCategory(id, errorCategory){
+    //     this.game[id].life = errorCategory
+    //     this.updateLocalStorage()
+    // }
+    // //Get life category
+    // getLifeCategory(id) {
+    //     return this.game[id].life
+    // }
 
-    getScoreCategory(id) {
-        return this.game[id].score
-    }
-
-    //Update life category
-    updateLifeCategory(id, life){
+    //GLOBAL
+    updateLife(id, life){
         this.game[id].life = life
         this.updateLocalStorage()
     }
 
-    getLifeCategory(id) {
-        return this.game[id].life
+    // getLifeGlobal(life) {
+    //     return this.game[i].life
+    // }
+
+    updateScore(id, score){
+        this.game[id].score = score
+        this.updateLocalStorage()
+    }
+
+    updateGlobalScore(score) {
+      this.game.globalScore = score
+      this.updateLocalStorage()
+    }
+
+    getCategoryScoreById( id ) {
+        if(this.game[id].score) {
+          return this.game[id].score
+        }
+        return 0
+    }
+
+    getCategoryLifeById( id ) {
+        if(this.game[id].life) {
+          return this.game[id].life
+        }
+        return 3
     }
 
     getGlobalScore() {
-
+      let globalScore = 0
+      for(let category in this.game) {
+        if(category.score) globalScore += category.score
+      }
+      return globalScore
     }
 
-
-    //GameOVer
-    gameOver(id){
-        if ( this.game[id].life <= 1 ) return true
-        this.resetLocalStorage()
+    getGlobalLife(){
+      let globalLife = 3
+      for(let category in this.game) {
+        if(category.life) globalLife += category.life
+      }
+      return globalLife
     }
 
     //Reset au bout de 3 erreurs

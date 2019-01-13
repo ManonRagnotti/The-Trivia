@@ -1,22 +1,32 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import Stockage  from '../../helpers/Stockage';
 
-const Category = ({ categoryName, questions, checkAnswer, inputRef, life, score}) => (
+import category from '../../styles/category.css';
+
+const Category = ({ categoryName, questions, checkAnswer, inputRef, life, score, globalScore}) => (
   <section>
-    <h1>{categoryName}</h1>
-    <section>
-      {questions}
+    <h1 className="logo">LAME</h1>
+    <Link className='backHome' to={'/'}></Link>
+    <Link onClick={e => Stockage.resetLocalStorage(e)} className='buttonReplay' to={'/'}>REPLAY</Link>
+
+    <h1 className="categoryName">{categoryName}</h1>
+
+    <section className="category_container">
+
+      <div className="life_score_container">
+        <span className="life">{life}</span>
+        <span className="score">{globalScore} / 10</span>
+      </div>
+
+      <p>{questions}</p>
+
       <form onSubmit={e => checkAnswer(e)}>
-        <input name="reponse" ref={inputRef} autoFocus/>
-        <input type="submit" value="Valider"/>
+        <input className="category_input_answer" name="answer" ref={inputRef} autoFocus/>
+        <input className="category_input_submit" type="submit" value="Valider"/>
       </form>
 
-      <span>error in this category: </span> <br/>
-      <span>score in this category: </span> <br/>
-
-      <span>life: {life}</span> <br/>
-      <span>score: {score}</span>
     </section>
   </section>
 );
