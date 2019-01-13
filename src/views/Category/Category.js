@@ -5,7 +5,7 @@ import Stockage  from '../../helpers/Stockage';
 
 import category from '../../styles/category.css';
 
-const Category = ({ categoryName, questions, checkAnswer, inputRef, life, score, globalScore}) => (
+const Category = ({ categoryName, questions, checkAnswer, inputRef, life, score) => (
   <section>
     <h1 className="logo">LAME</h1>
     <Link className='backHome' to={'/'}></Link>
@@ -17,7 +17,7 @@ const Category = ({ categoryName, questions, checkAnswer, inputRef, life, score,
 
       <div className="life_score_container">
         <span className="life">{life}</span>
-        <span className="score">{globalScore} / 10</span>
+        <span className="score">{score} / 10</span>
       </div>
 
       <p>{questions}</p>

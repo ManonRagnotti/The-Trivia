@@ -21,7 +21,7 @@ class HomeContainer extends Component {
     e.preventDefault()
     console.log('cliked')
     document.querySelector('.home_list_container').style.display ='block';
-    document.querySelector('.home_container').style.display ='none';
+    document.querySelector('.home_button').style.display ='none';
   }
 
   render() {

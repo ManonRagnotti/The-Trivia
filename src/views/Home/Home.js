@@ -10,8 +10,8 @@ const Home = ({ categories, explode }) => (
   <section>
     <h1 className="logo">LAME</h1>
     {categories.length > 0 && (
-        <section>
-            <button className="home_container" onClick={e => explode(e)}></button>
+        <section className="home_container">
+            <button className="home_button" onClick={e => explode(e)}></button>
             <ul className="home_list_container">
             {categories.map(category => (
                 <li key={category.id}>

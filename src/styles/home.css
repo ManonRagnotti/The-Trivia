@@ -1,5 +1,9 @@
 /* INTRO */
-.home_container {
+.home_container{
+  height: 70vh;
+  width: 80vw;
+}
+.home_button {
   display: block;
   background-image: url(../asset/home.png);
   background-color: black;
@@ -11,7 +15,7 @@
   outline: none;
   margin: auto;
   cursor: pointer;
-    margin: 2% auto 0%;
+  margin: 2% auto 0%;
   transition: 6s ease infinite;
   animation: MoveHome 12s ease-in infinite;
 }

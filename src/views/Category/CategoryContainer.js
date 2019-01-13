@@ -26,18 +26,14 @@ class CategoryContainer extends Component {
   async componentDidMount() {
     const data = await api.getCategoryById(this.props.match.params.id)
     console.log('data' , data);
-    const globalScore = Stockage.getGlobalScore()
-    const globalLife = Stockage.getGlobalLife()
-    console.log(globalScore)
-    
+
     //State de depart
     this.setState({
       category: {
         id: data.id,
         name: data.title,
         questions: data.clues
-      },
-      globalScore
+      }
     } );
 
     if(this.state.category) {
@@ -58,35 +54,32 @@ class CategoryContainer extends Component {
   }
 
   //Si on arrive sur une category: stocker l'id , le score et la vie dans local storage
-  componentDidUpdate() {
+  componentDidUpdate() {  }
 
 
-  }
-
-
-  //Go to the next question
+  //Passer à la prochiane question
   nextQuestion = (e) => {
     //Créer un array pour stocker les questions
     const questions = Array(...this.state.category.questions)
     console.log(questions);
-    questions.shift(); //Delete the first line of array and past to the next question
+    questions.shift(); //Suppression de la première question et passage a la suivante
 
     //Update state
     this.setState(prevState => ({
       category: {
-        id: prevState.category.id, //Keep the starting State
+        id: prevState.category.id, //Preserve le state de depart
         name: prevState.category.name,
-        questions: questions //Update array of questions
+        questions: questions //Update les questions
       }
     }), () => {
-      Stockage.isInLocalStorage( this.state.category.questions)
+      Stockage.isInLocalStorage( this.state.category.questions.clues )
     })
   }
 
-  //Check the Answer
+  //Verification de la reponse
   checkAnswer = (e) => {
     e.preventDefault()
-    //Compare our value to the right answer and past to the next question if our value is true
+    //Compare notre reponse à la bonne réponse et passe à la question suivante
     //Supprime le contenu de la case pour laisser un champs vide
     //Ajouter 1 au score si c'est juste
     if(this.inputRef.current.value == this.state.category.questions[0].answer) {
@@ -97,24 +90,28 @@ class CategoryContainer extends Component {
         globalScore: prev.globalScore + 1
       }), () => {
         Stockage.updateScore( this.state.category.id, this.state.score)
-        Stockage.updateGlobalScore(this.state.globalScore)
        })
+       //Si 10 bonne réponse, accès à la page Success et resetLocalStorage
        if( this.state.globalScore === 10 ) {
+        Stockage.resetLocalStorage()
  				this.setState({ winner: true })
  			}
     }
 
-    //Update la vie, décrémente de 1 à chaque faute, passe à la question d'après et vide le champs
+    //Si réponse fausse
+    //Update  la vie, décrémente de 1 à chaque faute, passe à la question d'après, vide le champs
     else {
-      alert('Mauvaise réponse')
       this.nextQuestion()
       this.inputRef.current.value = '';
-      this.setState(prev=>({
-        life: prev.life - 1
+      this.setState( prev =>({
+        life: prev.life - 1,
+        globalLife: prev.globalLife - 1
       }), () => {
         Stockage.updateLife( this.state.category.id, this.state.life)
       })
-      if( this.state.life === 1 ) {
+      //Si 3 erreurs, vie à 0, accès à la page GameOver et resetLocalStorage
+      if( this.state.globalLife === 1 ) {
+        Stockage.resetLocalStorage()
 				this.setState({ gameOver: true })
 			}
     }
@@ -130,7 +127,7 @@ class CategoryContainer extends Component {
       )
     }
 
-    //Redirect to GameOver page if you are a gameOver
+    //Redirect to GameOver page if you are gameOver
     if( this.state.gameOver) {
       return (
         <Redirect to="/gameover" />
@@ -158,7 +155,6 @@ class CategoryContainer extends Component {
       inputRef={this.inputRef}
       life={this.state.life}
       score={this.state.score}
-      globalScore={this.state.globalScore}
       />
     );
   }
