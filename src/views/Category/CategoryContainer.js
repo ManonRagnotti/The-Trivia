@@ -92,7 +92,7 @@ class CategoryContainer extends Component {
         Stockage.updateScore( this.state.category.id, this.state.score)
        })
        //Si 10 bonne réponse, accès à la page Success et resetLocalStorage
-       if( this.state.globalScore === 10 ) {
+       if( this.state.score === 10 ) {
         Stockage.resetLocalStorage()
  				this.setState({ winner: true })
  			}
@@ -110,7 +110,7 @@ class CategoryContainer extends Component {
         Stockage.updateLife( this.state.category.id, this.state.life)
       })
       //Si 3 erreurs, vie à 0, accès à la page GameOver et resetLocalStorage
-      if( this.state.globalLife === 1 ) {
+      if( this.state.life === 1 ) {
         Stockage.resetLocalStorage()
 				this.setState({ gameOver: true })
 			}
