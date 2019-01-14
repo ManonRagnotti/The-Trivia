@@ -86,8 +86,7 @@ class CategoryContainer extends Component {
       this.nextQuestion()
       this.inputRef.current.value = '';
       this.setState( prev =>({
-        score: prev.score + 1,
-        globalScore: prev.globalScore + 1
+        score: prev.score + 1
       }), () => {
         Stockage.updateScore( this.state.category.id, this.state.score)
        })
@@ -104,8 +103,7 @@ class CategoryContainer extends Component {
       this.nextQuestion()
       this.inputRef.current.value = '';
       this.setState( prev =>({
-        life: prev.life - 1,
-        globalLife: prev.globalLife - 1
+        life: prev.life - 1
       }), () => {
         Stockage.updateLife( this.state.category.id, this.state.life)
       })
